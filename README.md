@@ -1,7 +1,8 @@
-# softball-stats v 2.0
+# softball-stats v 2.1
 
 # Updates
 v2.0 - Pared down application to make it simpler. To start the application will start very basic. 
+v2.1 - Added cmd line flags to update the data. Added create table functionality. 
 
 ## Purpose
 
