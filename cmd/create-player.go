@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -45,7 +46,8 @@ func CreatePlayerHandler() (string, error) {
 	// Create New Player
 	createPlayer(teamName, p, dynamoClient)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
+		return "", err
 	}
 	return "", nil
 }
@@ -53,12 +55,14 @@ func CreatePlayerHandler() (string, error) {
 func createPlayer(teamName string, p Player, client *dynamodb.Client) error {
 	item, err := attributevalue.MarshalMap(p)
 	if err != nil {
+		log.Fatal(err)
 		return err
 	}
 	_, err = client.PutItem(context.TODO(), &dynamodb.PutItemInput{
 		TableName: aws.String(teamName), Item: item,
 	})
 	if err != nil {
+		log.Fatal(err)
 		return err
 	}
 	return nil
