@@ -14,12 +14,13 @@ type Team struct {
 // This struct will have basic identifying information like Name and Jersey Number
 // But it will also contain the batting stats of the player as a sub struct
 type Player struct {
-	PlayerID     string
-	FirstName    string
-	LastName     string
-	JerseyNumber int
+	//PlayerID     string
+	FirstName    string `dynamodbav:"FirstName"`
+	LastName     string `dynamodbav:"LastName"`
+	PlayerName   string `dynamodbav:"PlayerName"`
+	JerseyNumber string `dynamodbav:"JerseyNumber"`
 	//TeamMembership string // This links the player to a team (Player Item to the Team Table)
-	Stats
+	Stats `dynamodbav:"Stats"`
 }
 
 // This is the struct that represents the batting stats of a player

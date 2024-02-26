@@ -53,8 +53,7 @@ func main() {
 			log.Fatal(err)
 		}
 	case "create-player":
-		cmd.CreatePlayer()
-		fmt.Println("Creating Player")
+		cmd.CreatePlayerHandler()
 	case "update-stats":
 		//cmd.UpdateStats()
 		fmt.Println("Updating Player")

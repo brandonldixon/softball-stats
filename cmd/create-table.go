@@ -73,22 +73,14 @@ func createTable(n string, client *dynamodb.Client) (*types.TableDescription, er
 	table, err := client.CreateTable(context.TODO(), &dynamodb.CreateTableInput{
 		AttributeDefinitions: []types.AttributeDefinition{
 			{
-				AttributeName: aws.String("Player Name"),
+				AttributeName: aws.String("PlayerName"),
 				AttributeType: types.ScalarAttributeTypeS,
-			},
-			{
-				AttributeName: aws.String("Jersey Number"),
-				AttributeType: types.ScalarAttributeTypeN,
 			},
 		},
 		KeySchema: []types.KeySchemaElement{
 			{
-				AttributeName: aws.String("Player Name"),
+				AttributeName: aws.String("PlayerName"),
 				KeyType:       types.KeyTypeHash,
-			},
-			{
-				AttributeName: aws.String("Jersey Number"),
-				KeyType:       types.KeyTypeRange,
 			},
 		},
 		TableName:   aws.String(n),

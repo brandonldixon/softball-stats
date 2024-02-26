@@ -5,6 +5,8 @@ v2.0 - Pared down application to make it simpler. To start the application will 
 
 v2.1 - Added cmd line flags to update the data. Added create table functionality. 
 
+v2.2 - Changed table to only use primary key. Added create player functionality. 
+
 ## Purpose
 
 To learn Go and track team stats for the softball season
@@ -45,5 +47,5 @@ Look into htmx or a server side rendering to save time and effort writing front 
 ###### v 1.0 - Create a basic application for a single team to track stats for the season
 ###### v 2.0 - Realistically scope project to get something hosted
 ###### v 2.1 - Incorperate some of the v 1.0 code. Got the create table command working
-
+###### v 2.2 - Added create player functionality
 
