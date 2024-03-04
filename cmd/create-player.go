@@ -44,7 +44,7 @@ func CreatePlayerHandler() (string, error) {
 	dynamoClient := dynamodb.NewFromConfig(config)
 
 	// Create New Player
-	createPlayer(teamName, p, dynamoClient)
+	err = createPlayer(teamName, p, dynamoClient)
 	if err != nil {
 		log.Fatal(err)
 		return "", err
@@ -59,7 +59,9 @@ func createPlayer(teamName string, p Player, client *dynamodb.Client) error {
 		return err
 	}
 	_, err = client.PutItem(context.TODO(), &dynamodb.PutItemInput{
-		TableName: aws.String(teamName), Item: item,
+		TableName:           aws.String(teamName),
+		Item:                item,
+		ConditionExpression: aws.String("attribute_not_exists(PlayerName)"),
 	})
 	if err != nil {
 		log.Fatal(err)

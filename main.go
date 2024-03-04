@@ -54,9 +54,9 @@ func main() {
 		}
 	case "create-player":
 		cmd.CreatePlayerHandler()
-	case "update-stats":
-		//cmd.UpdateStats()
-		fmt.Println("Updating Player")
+	case "update-player":
+		cmd.UpdatePlayerHandler()
+		//fmt.Println("Updating Player")
 	default:
 		fmt.Println("Unrecognized Command", *cmdPointer)
 	}
