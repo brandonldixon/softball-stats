@@ -43,7 +43,7 @@ func UpdatePlayerHandler() (string, error) {
 	dynamoClient := dynamodb.NewFromConfig(config)
 
 	// Create New Player
-	updatePlayer(teamName, playerName, dynamoClient)
+	err = updatePlayer(teamName, playerName, dynamoClient)
 	if err != nil {
 		log.Fatal(err)
 		return "", err
