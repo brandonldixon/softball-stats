@@ -1,4 +1,4 @@
-# softball-stats v 2.1
+# softball-stats
 
 # Updates
 v2.0 - Pared down application to make it simpler. To start the application will start very basic. 
