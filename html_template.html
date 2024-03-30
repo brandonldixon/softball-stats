@@ -1,62 +1,4 @@
-package web
-
-import (
-	"context"
-	"fmt"
-	"log"
-	"os"
-	"text/template"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
-	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	"github.com/brandonldixon/softball-stats/cmd"
-)
-
-func GenerateWebPageHandler() {
-	// Load Permissions
-	config, err := config.LoadDefaultConfig(context.TODO())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Create http client for dynamodb api
-	dynamoClient := dynamodb.NewFromConfig(config)
-	tableName := "Nature"
-
-	generateHtml(dynamoClient, tableName)
-
-}
-
-func generateHtml(client *dynamodb.Client, name string) {
-
-	// Read Table
-	p, err := client.Scan(context.TODO(), &dynamodb.ScanInput{
-		TableName: aws.String(name),
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var players []cmd.Player
-	// Read scan output as slice of players
-	for _, item := range p.Items {
-		var player cmd.Player
-		err = attributevalue.UnmarshalMap(item, &player)
-		if err != nil {
-			log.Fatal(err)
-		}
-		players = append(players, player)
-	}
-	fmt.Println(players)
-	for _, player := range players {
-		player.Print()
-	}
-
-	// Parse HTML template
-	tmpl, err := template.New("table").Parse(`
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -156,21 +98,3 @@ func generateHtml(client *dynamodb.Client, name string) {
 </body>
 
 </html>
-		    `)
-	if err != nil {
-		// Handle error
-		panic(err)
-	}
-
-	f, err := os.Create("./webpage.html")
-	if err != nil {
-		log.Println("create file: ", err)
-		return
-	}
-	err = tmpl.Execute(f, players)
-	if err != nil {
-		log.Print("execute: ", err)
-		return
-	}
-	f.Close()
-}

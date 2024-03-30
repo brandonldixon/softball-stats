@@ -1,4 +1,5 @@
 # softball-stats
+https://stats.ol-buds.com
 
 # Updates
 v2.0 - Pared down application to make it simpler. To start the application will start very basic. 
@@ -8,6 +9,8 @@ v2.1 - Added cmd line flags to update the data. Added create table functionality
 v2.2 - Changed table to only use primary key. Added create player functionality. 
 
 v2.3 - Added update player functionality
+
+v2.4 - Created front end page generation via html templates
 
 ## Purpose
 
@@ -51,4 +54,5 @@ Look into htmx or a server side rendering to save time and effort writing front 
 ###### v 2.1 - Incorperate some of the v 1.0 code. Got the create table command working
 ###### v 2.2 - Added create player functionality
 ###### v 2.3 - Added update player functionality 
+###### v 2.4 - Created front end functionality 
 

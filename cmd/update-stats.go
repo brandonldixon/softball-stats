@@ -13,7 +13,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
 
-// Grab a player from the data base
+// Grab a player from the database
 // Handler function to handle the update-stats command
 // Function that grabs a player from the database and calls the update stats functions then writes it back to the database
 // This is done as a putitem without the conditional
@@ -42,7 +42,7 @@ func UpdatePlayerHandler() (string, error) {
 	// Create http client for dynamodb api
 	dynamoClient := dynamodb.NewFromConfig(config)
 
-	// Create New Player
+	// Update Player Stats
 	err = updatePlayer(teamName, playerName, dynamoClient)
 	if err != nil {
 		log.Fatal(err)
