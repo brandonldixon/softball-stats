@@ -95,52 +95,53 @@ func updatePlayer(t, k string, client *dynamodb.Client) error {
 // A method that updates the stats of a player
 // The function takes in several arguments, and then updates the struct by adding the new stats to the existing stats
 func (p *Player) UpdateStats() {
-	var newAtBats, newHits, newWalks, newSingles, newDoubles, newTriples, newHomeRuns, newRbis int
+	var newPlateAppearances, newAtBats, newHits, newWalks, newSingles, newDoubles, newTriples, newHomeRuns, newRbis, newRuns int
 
 	// Prompt for values
-	fmt.Println("Enter the number of At Bats the player had:")
-	fmt.Scanln(&newAtBats)
-	fmt.Println("Enter the number of Hits the player had:")
-	fmt.Scanln(&newHits)
-	// Input validation for hits
-	if newHits > newAtBats {
-		log.Fatal("Cannot have more hits than at bats.")
-	}
+	fmt.Println("Enter the number of Plate Appearances the player had:")
+	fmt.Scanln(&newPlateAppearances)
+	/*
+		fmt.Println("Enter the number of Hits the player had:")
+		fmt.Scanln(&newHits)
+		// Input validation for hits
+		if newHits > newAtBats {
+			log.Fatal("Cannot have more hits than at bats.")
+		}
+	*/
 	// Walks
 	fmt.Println("How many walks?")
 	fmt.Scanln(&newWalks)
+
 	// Singles
 	fmt.Println("How many singles?")
 	fmt.Scanln(&newSingles)
-	// Input validation for singles
-	if newSingles > newHits {
-		log.Fatal("Cannot have more singles than hits.")
-	}
+
 	// Doubles
 	fmt.Println("How many doubles?")
 	fmt.Scanln(&newDoubles)
-	// Input validation for doubles
-	if newDoubles+newSingles > newHits {
-		log.Fatal("Cannot have more singles and doubles than hits.")
-	}
+
 	// Triples
 	fmt.Println("How many triples?")
 	fmt.Scanln(&newTriples)
-	// Input validation
-	if newTriples+newDoubles+newSingles > newHits {
-		log.Fatal("Cannot have more triples doubles and singles than hits")
-	}
+
 	// Home Runs
 	fmt.Println("How many Home Runs?")
 	fmt.Scanln(&newHomeRuns)
-	// Input validation
-	if newHomeRuns+newTriples+newDoubles+newSingles != newHits {
-		log.Fatal("Cannot have more home runs, triples, doubles and singles than hits")
-	}
+
 	// RBIs
 	fmt.Println("How many RBIs?")
 	fmt.Scanln(&newRbis)
 
+	// Runs
+	fmt.Println("How many Runs scored?")
+	fmt.Scanln(&newRuns)
+
+	// Inferred stats
+	newAtBats = newPlateAppearances - newWalks
+
+	newHits = newSingles + newDoubles + newTriples + newHomeRuns
+
+	(*p).Stats.PlateAppearances += newPlateAppearances
 	(*p).Stats.AtBats += newAtBats
 	(*p).Stats.Hits += newHits
 	(*p).Stats.Walks += newWalks
@@ -149,6 +150,7 @@ func (p *Player) UpdateStats() {
 	(*p).Stats.Triples += newTriples
 	(*p).Stats.HomeRuns += newHomeRuns
 	(*p).Stats.RBIs += newRbis
+	(*p).Stats.Runs += newRuns
 
 }
 

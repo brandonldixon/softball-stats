@@ -28,6 +28,7 @@ type Player struct {
 // This is broken out from the player struct because Players may have multiple stat lines from multiple teams
 // This may need to be changed to a map to make DynamoDB operations easier since it will be a map in the table
 type Stats struct {
+	PlateAppearances int
 	AtBats           int
 	Hits             int
 	Walks            int
@@ -36,6 +37,7 @@ type Stats struct {
 	Triples          int
 	HomeRuns         int
 	RBIs             int
+	Runs             int
 	BattingAverage   float64
 	OnBasePercentage float64
 }
