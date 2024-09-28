@@ -26,9 +26,11 @@ func UpdatePlayerHandler() (string, error) {
 	fmt.Scanln(&i)
 	fmt.Println("Enter Player Last Name: ")
 	fmt.Scanln(&j)
-	fmt.Println("What Team Name does the player play for: ")
-	fmt.Scanln(&teamName)
+	//fmt.Println("What Team Name does the player play for: ")
+	//fmt.Scanln(&teamName)
 	playerName := i + j
+	// Hardcoding team name for one less prompt
+	teamName = "Nature"
 	//fmt.Printf("Creating Player\n Name: %s\n Number: %s\n", p.PlayerName, p.JerseyNumber)
 	//p.PlayerID = GenerateId()
 	//return &p
@@ -98,16 +100,11 @@ func (p *Player) UpdateStats() {
 	var newPlateAppearances, newAtBats, newHits, newWalks, newSingles, newDoubles, newTriples, newHomeRuns, newRbis, newRuns int
 
 	// Prompt for values
+
+	// Plate Appearances
 	fmt.Println("Enter the number of Plate Appearances the player had:")
 	fmt.Scanln(&newPlateAppearances)
-	/*
-		fmt.Println("Enter the number of Hits the player had:")
-		fmt.Scanln(&newHits)
-		// Input validation for hits
-		if newHits > newAtBats {
-			log.Fatal("Cannot have more hits than at bats.")
-		}
-	*/
+
 	// Walks
 	fmt.Println("How many walks?")
 	fmt.Scanln(&newWalks)
@@ -141,16 +138,16 @@ func (p *Player) UpdateStats() {
 
 	newHits = newSingles + newDoubles + newTriples + newHomeRuns
 
-	(*p).Stats.PlateAppearances += newPlateAppearances
-	(*p).Stats.AtBats += newAtBats
-	(*p).Stats.Hits += newHits
-	(*p).Stats.Walks += newWalks
-	(*p).Stats.Singles += newSingles
-	(*p).Stats.Doubles += newDoubles
-	(*p).Stats.Triples += newTriples
-	(*p).Stats.HomeRuns += newHomeRuns
-	(*p).Stats.RBIs += newRbis
-	(*p).Stats.Runs += newRuns
+	p.Stats.PlateAppearances += newPlateAppearances
+	p.Stats.AtBats += newAtBats
+	p.Stats.Hits += newHits
+	p.Stats.Walks += newWalks
+	p.Stats.Singles += newSingles
+	p.Stats.Doubles += newDoubles
+	p.Stats.Triples += newTriples
+	p.Stats.HomeRuns += newHomeRuns
+	p.Stats.RBIs += newRbis
+	p.Stats.Runs += newRuns
 
 }
 
@@ -158,14 +155,14 @@ func (p *Player) UpdateStats() {
 // The method cals a function that rounds the float to 3 decimal places.
 // The batting average will be calculated without walks, as walks do not count as at bats.
 func (p *Player) CalculateBattingAverage() {
-	(*p).Stats.BattingAverage = roundFloat(float64((*p).Stats.Hits)/float64((*p).Stats.AtBats), 3)
+	p.Stats.BattingAverage = roundFloat(float64((*p).Stats.Hits)/float64((*p).Stats.AtBats), 3)
 }
 
 // A method that calculates the on base percentage.
 // This method calls the roundFloat function also to round the on base percentage to 3 decimal places.
 // The on base percentge includes walks, by adding the walks stat to the numerator and demoninator of the calculation equation
 func (p *Player) CalculateOnBasePercentage() {
-	(*p).Stats.OnBasePercentage = roundFloat(float64((*p).Stats.Hits+(*p).Stats.Walks)/float64((*p).Stats.AtBats+(*p).Stats.Walks), 3)
+	p.Stats.OnBasePercentage = roundFloat(float64((*p).Stats.Hits+(*p).Stats.Walks)/float64((*p).Stats.AtBats+(*p).Stats.Walks), 3)
 }
 
 // A function that exists to round a float64 to 3 decimal places
